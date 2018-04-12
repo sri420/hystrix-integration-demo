@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/integration
+    http://www.springframework.org/schema/integration/spring-integration.xsd
+    http://www.springframework.org/schema/integration/http
+    http://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
+
+
+
+	<int:gateway service-interface="com.demo.integrationservice.HystrixServiceGateway"
+		id="serviceGateway" />
+
+	<int:channel id="reply.channel">
+		<int:queue capacity="10" />
+	</int:channel>
+
+	<int:channel id="get.request.channel" />
+
+	<int-http:outbound-gateway id="outbound.gateway"
+		request-channel="get.request.channel" url="http://localhost:9092/profiles"
+		http-method="GET" charset='UTF-8' reply-channel="reply.channel"
+		rest-template="restTemplate" expected-response-type="java.lang.String">
+	</int-http:outbound-gateway>
+
+
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<property name="messageConverters">
+			<list>
+				<ref bean="stringHttpMessageConverter"></ref>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="stringHttpMessageConverter"
+		class="org.springframework.http.converter.StringHttpMessageConverter">
+	</bean>
+
+
+
+</beans>
