@@ -44,7 +44,7 @@ public class HystrixIntegrationApplication {
 		
 		LOGGER.info("Received name:" + name);
 
-		LOGGER.info("Checking for Valid Surname");
+		LOGGER.info("Checking for Valid name");
 		if (null != name && name.equalsIgnoreCase("khan")) {
 			LOGGER.error("Exiting as, name is not valid.");
 			throw new Exception("name is not valid.");
