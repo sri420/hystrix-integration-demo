@@ -13,7 +13,7 @@
 
 
 
-	<int:gateway service-interface="com.demo.integrationservice.HystrixServiceGateway"
+	<int:gateway service-interface="com.demo.hystrix.HystrixServiceGateway"
 		id="serviceGateway" />
 
 	<int:channel id="reply.channel">
