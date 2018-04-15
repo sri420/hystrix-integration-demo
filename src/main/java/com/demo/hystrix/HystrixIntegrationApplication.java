@@ -41,15 +41,15 @@ public class HystrixIntegrationApplication {
 	public String getByName(String name) throws Exception {
 
 		LOGGER.info("Entering");
-		;
-		LOGGER.info("Received surname:" + name);
+		
+		LOGGER.info("Received name:" + name);
 
 		LOGGER.info("Checking for Valid Surname");
 		if (null != name && name.equalsIgnoreCase("khan")) {
 			LOGGER.error("Exiting as, name is not valid.");
-			throw new Exception("Surname is not valid.");
+			throw new Exception("name is not valid.");
 		}
-		LOGGER.info("Surname is Valid. About to Make Call to Gateway...");
+		LOGGER.info("name is Valid. About to Make Call to Gateway...");
 
 		// Call Gateway
 		String responseMsg = gatewayCallGetMessage(name);
